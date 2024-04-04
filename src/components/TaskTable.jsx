@@ -2,12 +2,14 @@ import { Box } from "@chakra-ui/react";
 import { useState } from "react";
 import DATA from "../data";
 import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import EditableCell from "./EditableCell";
 
 const columns = [
     {
         accessorKey: 'task',
         header: 'Task',
-        cell: (props) => <p>{props.getValue()}</p>
+        size: 225,
+        cell: EditableCell,
     },
     {
         accessorKey: 'status',
@@ -33,9 +35,18 @@ const TaskTable = () => {
         columns,
         getCoreRowModel: getCoreRowModel(),
         columnResizeMode: 'onChange',
+        meta: {
+            updateData: (rowIndex, columnId, value) =>
+                setData(prev => prev.map((row, index) => (
+                    index === rowIndex ? {
+                        ...prev[rowIndex],
+                        [columnId]: value,
+                    } : row
+                )))
+        }
     });
 
-    console.log(table.getHeaderGroups());
+    console.log(data);
 
     return (
         <Box>
