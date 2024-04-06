@@ -3,6 +3,7 @@ import { useState } from "react";
 import DATA from "../data";
 import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import EditableCell from "./EditableCell";
+import StatusCell from "./StatusCell";
 
 const columns = [
     {
@@ -14,7 +15,7 @@ const columns = [
     {
         accessorKey: 'status',
         header: 'Status',
-        cell: (props) => <p>{props.getValue()?.name}</p>
+        cell: StatusCell
     },
     {
         accessorKey: 'due',
