@@ -1,14 +1,28 @@
 import React, { forwardRef } from 'react';
-import { Center, Icon } from '@chakra-ui/react';
+import { Center, Icon, Box } from '@chakra-ui/react';
 import CalendarIcon from './icons/CalendarIcon';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const DateCustomInput = forwardRef(({ value, onClick }, ref) => (
+const DateCustomInput = forwardRef(({ value, onClick, clearDate }, ref) => (
     <Center onClick={onClick} cursor='pointer' ref={ref}>
         {
             value ?
-                <>{value}</> :
+                <>
+                    {value}
+                    <Box
+                        pos='absolute'
+                        right={3}
+                        fontSize='md'
+                        color='red.300'
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            clearDate();
+                        }}
+                    >
+                        &times;
+                    </Box>
+                </> :
                 <Icon as={CalendarIcon} fontSize='xl' />
         }
     </Center>
@@ -24,7 +38,11 @@ const DateCell = ({ getValue, row, column, table }) => {
             dateFormat='MMM d'
             selected={date}
             onChange={(date) => updateData(row.index, column.id, date)}
-            customInput={<DateCustomInput />}
+            customInput={
+                <DateCustomInput clearDate={
+                    () => updateData(row.index, column.id, null)
+                } />
+            }
         />
     )
 }
