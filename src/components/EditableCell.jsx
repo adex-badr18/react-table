@@ -28,6 +28,7 @@ const EditableCell = ({ getValue, row, column, table }) => {
             overflow='hidden'
             textOverflow='ellipsis'
             whiteSpace='nowrap'
+            _hover={{bg: 'transparent'}}
         />
     )
 }

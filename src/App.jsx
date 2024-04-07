@@ -4,7 +4,7 @@ import TaskTable from "./components/TaskTable";
 function App() {
   return (
     <Box maxW={1000} mx="auto" px={6} pt={24} fontSize="sm">
-      <Heading mb={10}>TanStack Table</Heading>
+      <Heading mb={10}>Task Manager with TanStack Table</Heading>
       <TaskTable />
     </Box>
   );
