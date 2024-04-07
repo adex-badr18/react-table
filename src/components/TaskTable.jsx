@@ -26,7 +26,8 @@ const columns = [
     {
         accessorKey: 'notes',
         header: 'Notes',
-        cell: (props) => <p>{props.getValue()}</p>
+        size: 225,
+        cell: EditableCell,
     },
 ]
 
