@@ -4,6 +4,7 @@ import DATA from "../data";
 import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import EditableCell from "./EditableCell";
 import StatusCell from "./StatusCell";
+import DateCell from "./DateCell";
 
 const columns = [
     {
@@ -20,7 +21,7 @@ const columns = [
     {
         accessorKey: 'due',
         header: 'Due',
-        cell: (props) => <p>{props.getValue()?.toLocaleString()}</p>
+        cell: DateCell
     },
     {
         accessorKey: 'notes',
