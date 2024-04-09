@@ -7,6 +7,7 @@ import StatusCell from "./StatusCell";
 import DateCell from "./DateCell";
 import Filters from "./Filters";
 import SortIcon from "./icons/SortIcon";
+import { TbSortAscending, TbSortDescending } from "react-icons/tb";
 
 const columns = [
     {
@@ -83,6 +84,7 @@ const TaskTable = () => {
                                 headerGroup.headers.map(header => (
                                     <Box className='th' w={header.getSize()} key={header.id}>
                                         {header.column.columnDef.header}
+
                                         {header.column.getCanSort() && (
                                             <Icon
                                                 as={SortIcon}
@@ -91,6 +93,14 @@ const TaskTable = () => {
                                                 onClick={header.column.getToggleSortingHandler()}
                                             />
                                         )}
+
+                                        {
+                                            {
+                                                'asc': <TbSortAscending size={14} />,
+                                                'desc': <TbSortDescending size={14} />
+                                            }[header.column.getIsSorted()]
+                                        }
+
                                         <Box
                                             onMouseDown={header.getResizeHandler()}
                                             onTouchStart={header.getResizeHandler()}
