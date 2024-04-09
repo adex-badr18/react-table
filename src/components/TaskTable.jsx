@@ -22,6 +22,7 @@ const columns = [
         header: 'Status',
         cell: StatusCell,
         enableColumnFilter: true,
+        enableSorting: false,
         filterFn: (row, columnId, filterStatuses) => {
             if (filterStatuses.length === 0) return true;
             const status = row.getValue(columnId);
@@ -66,7 +67,7 @@ const TaskTable = () => {
         }
     });
 
-    console.log(columnFilters);
+    // console.log(columnFilters);
 
     return (
         <Box>
