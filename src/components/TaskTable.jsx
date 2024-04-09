@@ -1,11 +1,12 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Icon } from "@chakra-ui/react";
 import { useState } from "react";
 import DATA from "../data";
-import { flexRender, getCoreRowModel, getFilteredRowModel, useReactTable } from "@tanstack/react-table";
+import { flexRender, getCoreRowModel, getFilteredRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table";
 import EditableCell from "./EditableCell";
 import StatusCell from "./StatusCell";
 import DateCell from "./DateCell";
 import Filters from "./Filters";
+import SortIcon from "./icons/SortIcon";
 
 const columns = [
     {
@@ -52,6 +53,7 @@ const TaskTable = () => {
         },
         getCoreRowModel: getCoreRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
+        getSortedRowModel: getSortedRowModel(),
         columnResizeMode: 'onChange',
         meta: {
             updateData: (rowIndex, columnId, value) =>
@@ -80,6 +82,14 @@ const TaskTable = () => {
                                 headerGroup.headers.map(header => (
                                     <Box className='th' w={header.getSize()} key={header.id}>
                                         {header.column.columnDef.header}
+                                        {header.column.getCanSort() && (
+                                            <Icon
+                                                as={SortIcon}
+                                                fontSize={14}
+                                                mx={3}
+                                                onClick={header.column.getToggleSortingHandler()}
+                                            />
+                                        )}
                                         <Box
                                             onMouseDown={header.getResizeHandler()}
                                             onTouchStart={header.getResizeHandler()}
