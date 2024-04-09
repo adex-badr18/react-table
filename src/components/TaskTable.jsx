@@ -1,13 +1,14 @@
-import { Box, Icon } from "@chakra-ui/react";
+import { Box, Icon, Text, ButtonGroup, IconButton } from "@chakra-ui/react";
 import { useState } from "react";
 import DATA from "../data";
-import { flexRender, getCoreRowModel, getFilteredRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table";
+import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table";
 import EditableCell from "./EditableCell";
 import StatusCell from "./StatusCell";
 import DateCell from "./DateCell";
 import Filters from "./Filters";
 import SortIcon from "./icons/SortIcon";
 import { TbSortAscending, TbSortDescending } from "react-icons/tb";
+import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 
 const columns = [
     {
@@ -56,6 +57,7 @@ const TaskTable = () => {
         getCoreRowModel: getCoreRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
         getSortedRowModel: getSortedRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
         columnResizeMode: 'onChange',
         meta: {
             updateData: (rowIndex, columnId, value) =>
@@ -129,6 +131,26 @@ const TaskTable = () => {
                     ))
                 }
             </Box>
+            <br />
+            <Text mb={2}>
+                Page {table.getState().pagination.pageIndex + 1} of {" "}
+                {table.getPageCount()}
+            </Text>
+
+            <ButtonGroup size='sm' isAttached variant='outline'>
+                <IconButton
+                    icon={<GrFormPrevious size={16} />}
+                    onClick={() => table.previousPage()}
+                    isDisabled={!table.getCanPreviousPage()}
+                    colorScheme="white"
+                />
+                <IconButton
+                    icon={<GrFormNext size={16} />}
+                    onClick={() => table.nextPage()}
+                    isDisabled={!table.getCanNextPage()}
+                    colorScheme="white"
+                />
+            </ButtonGroup>
         </Box>
     )
 };
